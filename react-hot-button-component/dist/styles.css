@@ -1,0 +1,37 @@
+button {
+  margin: 2rem;
+  padding: 2rem;
+  border-style: solid black;
+  border-radius: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+button[heat="level0"] {
+  background-color: lightgrey;
+}
+
+button[heat="level1"] {
+  background-color: red;
+}
+
+button[heat="level2"] {
+  background-color: orangered;
+}
+
+button[heat="level3"] {
+  background-color: orange;
+}
+
+button[heat="level4"] {
+  background-color: yellow;
+}
+
+button[heat="level5"] {
+  background-color: rgb(56, 109, 255);
+}
+
+button[heat="level6"] {
+  background-color: white;
+}
