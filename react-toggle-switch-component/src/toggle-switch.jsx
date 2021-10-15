@@ -10,7 +10,7 @@ class ToggleSwitch extends React.Component {
 
   clickHandler() {
     this.setState(prevState => (
-      { toggled: !prevState.status }
+      { toggled: !prevState.toggled }
     ));
   }
 
