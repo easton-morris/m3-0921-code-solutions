@@ -1,0 +1,45 @@
+button {
+  height: 2rem;
+  width: 4rem;
+  border-style: hidden;
+  outline: thin solid black;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+button.on {
+  background-color: green;
+}
+
+button.off {
+  background-color: lightcoral;
+}
+
+div.switch {
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+  background-color: lightslategrey;
+  border-radius: 50%;
+  border-style: hidden;
+}
+
+div.switchedOn {
+  position: relative;
+  top: 2rem;
+  left: 0;
+  transition-property: left;
+  transition-duration: 0.5s;
+}
+
+div.switchedOff {
+  position: relative;
+  top: 2rem;
+  left: 2rem;
+  transition-property: left;
+  transition-duration: 0.5s;
+}
+
+span.label {
+  margin: 1.5rem;
+}
