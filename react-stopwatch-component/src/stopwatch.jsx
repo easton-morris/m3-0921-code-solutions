@@ -5,19 +5,25 @@ class StopWatch extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { time: 0, paused: true, };
+    this.state = { time: 0, paused: true };
     this.buttonClick = this.buttonClick.bind(this);
     this.faceClick = this.faceClick.bind(this);
   }
 
-  timeHandler() {
-    if (this.state.paused === false) {
+  tick() {
+    this.setState(prevState => ({
+      time: prevState.time++
+    }));
+  }
 
-      const intId = setInterval(
-        () => this.setState(prevState => ({time: prevState.time++})), 1000
+  timeHandler() {
+    let intID = 0;
+    if (this.state.paused === false) {
+      intID = setInterval(
+        this.tick(), 1000
       );
     } else {
-      clearInterval(intId);
+      clearInterval(intID);
     }
   }
 
@@ -26,7 +32,7 @@ class StopWatch extends React.Component {
       paused: !prevState.paused
     }));
 
-    timeHandler();
+    this.timeHandler();
   }
 
   faceClick() {
@@ -38,12 +44,13 @@ class StopWatch extends React.Component {
   }
 
   render() {
-    <div onClick={this.faceClick} className="watchBody">
+    console.log(this.state);
+    return <div onClick={this.faceClick} className="watchBody">
       <div className="watchFace">
         <span>{ this.state.time }</span>
       </div>
-      <i onClick={this.buttonClick} className={this.state.paused ? 'fas fa-pause' : 'fas fa-play'}></i>
-    </div>
+      <i onClick={this.buttonClick} className={this.state.paused ? 'fas fa-play' : 'fas fa-pause'}></i>
+    </div>;
   }
 }
 
