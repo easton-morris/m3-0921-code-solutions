@@ -11,11 +11,11 @@ class NewsletterForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange() {
+  handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
     console.log('Email:', this.state.value);
     event.preventDefault();
   }
