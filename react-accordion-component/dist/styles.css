@@ -1,0 +1,31 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  cursor: pointer;
+  background-color: lightgreen;
+  min-width: 40%;
+  height: 10vh;
+  border: 1px solid black;
+  border-radius: 25px;
+  text-align: center;
+}
+
+.history {
+  background-color: lightgray;
+  border: 1px solid black;
+}
+
+.hidden {
+  display: none;
+}
+
+.historyDetails {
+  font-style: italic;
+  padding: 0.5rem;
+}
+
+.dogList {
+  margin: auto 0;
+}

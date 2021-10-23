@@ -5,24 +5,37 @@ class Accordion extends React.Component {
     super(props);
 
     this.state = { open: false };
+    this.closeAll = this.closeAll.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.DetailArea = this.DetailArea.bind(this);
     this.DogList = this.DogList.bind(this);
   }
 
+  closeAll() {
+    if (this.state.open === true) {
+      const openDetails = document.getElementsByClassName('history');
+      for (let ii = 0; ii < openDetails.length; ii++) {
+        openDetails[ii].className = 'history hidden';
+      }
+    }
+  }
+
   clickHandler(event) {
-    if (event.target.className === 'history hidden') {
-      event.target.className = 'history';
-    } else {
-      event.target.className = 'history hidden';
+    if (event.currentTarget.nextElementSibling.className === 'history hidden') {
+      this.closeAll();
+      event.currentTarget.nextElementSibling.className = 'history';
+      this.setState({ open: true });
+    } else if (event.currentTarget.nextElementSibling.className === 'history') {
+      event.currentTarget.nextElementSibling.className = 'history hidden';
+      this.setState({ open: false });
     }
   }
 
   DetailArea(props) {
     return (
       <div>
-        <h1>
-          {props.key}
+        <h1 onClick={this.clickHandler}>
+          {props.title}
         </h1>
         <div className="history hidden">
           <p className="historyDetails">
@@ -36,7 +49,7 @@ class Accordion extends React.Component {
   DogList(props) {
     const details = props.details;
     const doggieList = details.map(detail =>
-      <this.DetailArea onClick={this.clickHandler} key={detail.breed} value={detail.dogHist} />
+      <this.DetailArea key={detail.breed} title={detail.breed} value={detail.dogHist} />
     );
     return (
       doggieList
