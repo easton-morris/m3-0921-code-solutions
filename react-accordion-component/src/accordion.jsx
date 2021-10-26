@@ -4,7 +4,7 @@ class Accordion extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { open: false };
+    this.state = { open: false, openArea: null };
     this.closeAll = this.closeAll.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.DetailArea = this.DetailArea.bind(this);
@@ -12,32 +12,29 @@ class Accordion extends React.Component {
   }
 
   closeAll() {
-    if (this.state.open === true) {
-      const openDetails = document.getElementsByClassName('history');
-      for (let ii = 0; ii < openDetails.length; ii++) {
-        openDetails[ii].className = 'history hidden';
-      }
-    }
+    this.setState({
+      open: false, openArea: null
+    });
   }
 
   clickHandler(event) {
-    if (event.currentTarget.nextElementSibling.className === 'history hidden') {
+    if (this.state.openArea && event.target.id !== this.state.openArea) {
       this.closeAll();
-      event.currentTarget.nextElementSibling.className = 'history';
-      this.setState({ open: true });
-    } else if (event.currentTarget.nextElementSibling.className === 'history') {
-      event.currentTarget.nextElementSibling.className = 'history hidden';
-      this.setState({ open: false });
+      this.setState({ open: true, openArea: event.target.id });
+    } else if (!this.state.openArea) {
+      this.setState({ open: true, openArea: event.target.id });
+    } else if (this.state.openArea && event.target.id === this.state.openArea) {
+      this.closeAll();
     }
   }
 
   DetailArea(props) {
     return (
       <div>
-        <h1 onClick={this.clickHandler}>
+        <h1 id={props.id} onClick={this.clickHandler}>
           {props.title}
         </h1>
-        <div className="history hidden">
+        <div className={props.isOpen ? 'history' : 'history hidden' }>
           <p className="historyDetails">
             {props.value}
           </p>
@@ -49,7 +46,7 @@ class Accordion extends React.Component {
   DogList(props) {
     const details = props.details;
     const doggieList = details.map(detail =>
-      <this.DetailArea key={detail.breed} title={detail.breed} value={detail.dogHist} />
+      <this.DetailArea id={detail.id} key={detail.id} title={detail.breed} value={detail.dogHist} isOpen={detail.id.toString() === this.state.openArea} />
     );
     return (
       doggieList
