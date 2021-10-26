@@ -31,8 +31,14 @@ class AppDrawer extends React.Component {
     return (
       <div className="container">
         {this.state.menu ? null : <i className="fas fa-bars" onClick={this.clickHandler}></i>}
-        {this.state.menu ? <div className="dimmer" onClick={this.clickHandler}></div> : null}
-        {this.state.menu ? <DrawerMenu onClick={this.clickHandler} /> : null}
+        {this.state.menu
+          ? (
+          <div>
+            <div className="dimmer" onClick={this.clickHandler}></div>
+            <DrawerMenu onClick={this.clickHandler} />
+          </div>
+            )
+          : null}
       </div>
     );
   }
