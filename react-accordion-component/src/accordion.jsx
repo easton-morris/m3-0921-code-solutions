@@ -4,7 +4,7 @@ class Accordion extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { open: false, openArea: null };
+    this.state = { openArea: null };
     this.closeAll = this.closeAll.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.DetailArea = this.DetailArea.bind(this);
@@ -13,16 +13,16 @@ class Accordion extends React.Component {
 
   closeAll() {
     this.setState({
-      open: false, openArea: null
+      openArea: null
     });
   }
 
   clickHandler(event) {
     if (this.state.openArea && event.target.id !== this.state.openArea) {
       this.closeAll();
-      this.setState({ open: true, openArea: event.target.id });
+      this.setState({ openArea: event.target.id });
     } else if (!this.state.openArea) {
-      this.setState({ open: true, openArea: event.target.id });
+      this.setState({ openArea: event.target.id });
     } else if (this.state.openArea && event.target.id === this.state.openArea) {
       this.closeAll();
     }
