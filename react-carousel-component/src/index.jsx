@@ -7,31 +7,31 @@ const pics = [
   {
     id: 1,
     char: 'Mario',
-    URL: 'https://ssb.wiki.gallery/images/thumb/4/44/Mario_SSBU.png/250px-Mario_SSBU.png'
+    path: 'https://ssb.wiki.gallery/images/thumb/4/44/Mario_SSBU.png/250px-Mario_SSBU.png'
   },
   {
     id: 2,
     char: 'Luigi',
-    URL: 'https://ssb.wiki.gallery/images/thumb/b/bb/Luigi_SSBU.png/250px-Luigi_SSBU.png'
+    path: 'https://ssb.wiki.gallery/images/thumb/b/bb/Luigi_SSBU.png/250px-Luigi_SSBU.png'
   },
   {
     id: 3,
     char: 'Peach',
-    URL: 'https://ssb.wiki.gallery/images/thumb/7/74/Peach_SSBU.png/250px-Peach_SSBU.png'
+    path: 'https://ssb.wiki.gallery/images/thumb/7/74/Peach_SSBU.png/250px-Peach_SSBU.png'
   },
   {
     id: 4,
     char: 'Bowser',
-    URL: 'https://ssb.wiki.gallery/images/thumb/4/49/Bowser_SSBU.png/250px-Bowser_SSBU.png'
+    path: 'https://ssb.wiki.gallery/images/thumb/4/49/Bowser_SSBU.png/250px-Bowser_SSBU.png'
   },
   {
     id: 5,
     char: 'Dr. Mario',
-    URL: 'https://ssb.wiki.gallery/images/thumb/3/3f/Dr._Mario_SSBU.png/250px-Dr._Mario_SSBU.png'
+    path: 'https://ssb.wiki.gallery/images/thumb/3/3f/Dr._Mario_SSBU.png/250px-Dr._Mario_SSBU.png'
   }
 ];
 
 ReactDOM.render(
-  <Carousel pics={pics} />,
+  <Carousel pics={pics}/>,
   document.getElementById('root')
 );

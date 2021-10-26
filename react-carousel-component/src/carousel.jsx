@@ -7,6 +7,8 @@ class Carousel extends React.Component {
     this.state = { caroNum: 0, active: true };
     this.arrowClickHandler = this.arrowClickHandler.bind(this);
     this.iconClickHandler = this.iconClickHandler.bind(this);
+    this.IconItem = this.IconItem.bind(this);
+    this.IconList = this.IconList.bind(this);
   }
 
   arrowClickHandler(event) {
@@ -26,22 +28,27 @@ class Carousel extends React.Component {
       event.target.className = 'fas fa-dot-circle';
     }
 
-    const iconList = document.getElementsByName('i');
-
-    for (let ii = 0; ii < iconList.length; ii++) {
-      iconList[ii].className = 'far fa-dot-circle';
-    }
-
     this.setState({ caroNum: event.target.iconId, active: false });
 
   }
 
   IconItem(props) {
-
+    return (
+      <i className={props.isShowing} id={props.iconId}></i>
+    );
   }
 
   IconList(props) {
+    const pics = props.pics;
+    const picList = pics.map(pic =>
+      <this.IconItem iconId={pic.id} key={pic.id} isShowing={(this.state.caroNum + 1) === pic.id ? 'fas fa-dot-circle' : 'far fa-dot-circle'} />
+    );
 
+    return (
+      <ul className="iconArea">
+        {picList}
+      </ul>
+    );
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -61,11 +68,11 @@ class Carousel extends React.Component {
       <div>
       <div className="caroArea">
         <i className="fas fa-arrow-left"></i>
-        <this.CaroPic picUrl={this.props[this.state.caroNum].URL} charName={this.props[this.state.caroNum].char} />
+          <this.CaroPic picUrl={this.props.pics[this.state.caroNum].path} charName={this.props.pics[this.state.caroNum].char} />
         <i className="fas fa-arrow-right"></i>
       </div>
-      <div>
-        <this.IconList />
+      <div className="iconContainer">
+        <this.IconList pics={this.props.pics}/>
       </div>
       </div>
     );
