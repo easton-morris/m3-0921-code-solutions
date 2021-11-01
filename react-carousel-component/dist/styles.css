@@ -16,6 +16,8 @@ i {
 
 .caroPic {
   margin: 5rem;
+  flex-basis: 1;
+  height: 30vh;
   width: 30%;
   outline: 2px black solid;
 }
