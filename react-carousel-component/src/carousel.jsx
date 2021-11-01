@@ -4,23 +4,40 @@ class Carousel extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { caroNum: 0, active: true };
+    this.state = { caroNum: 0, intId: null };
     this.arrowClickHandler = this.arrowClickHandler.bind(this);
     this.iconClickHandler = this.iconClickHandler.bind(this);
     this.IconItem = this.IconItem.bind(this);
     this.IconList = this.IconList.bind(this);
+    this.picTimer = this.picTimer.bind(this);
+  }
+
+  picTimer(prevIntId) {
+    if (prevIntId) {
+      clearInterval(prevIntId);
+    }
+    const intId = setInterval(() => {
+      if (this.state.caroNum !== (this.props.pics.length - 1)) {
+        this.setState({ caroNum: (this.state.caroNum + 1) });
+      } else if (this.state.caroNum === (this.props.pics.length - 1)) {
+        this.setState({ caroNum: 0 });
+      }
+    }, 3000);
+    this.setState({ intId: intId });
+    return intId;
   }
 
   arrowClickHandler(event) {
     if (event.target.className === 'fas fa-arrow-right' && this.state.caroNum !== (this.props.pics.length - 1)) {
-      this.setState({ caroNum: (this.state.caroNum + 1), active: false });
-    } else if (this.state.caroNum === this.props.pics.length) {
-      this.setState({ caroNum: 0, active: false });
+      this.setState({ caroNum: (this.state.caroNum + 1) });
+    } else if (event.target.className === 'fas fa-arrow-right' && this.state.caroNum === (this.props.pics.length - 1)) {
+      this.setState({ caroNum: 0 });
     } else if (event.target.className === 'fas fa-arrow-left' && this.state.caroNum !== 0) {
-      this.setState({ caroNum: (this.state.caroNum - 1), active: false });
+      this.setState({ caroNum: (this.state.caroNum - 1) });
     } else if (this.state.caroNum === 0) {
-      this.setState({ caroNum: (this.props.pics.length - 1), active: false });
+      this.setState({ caroNum: (this.props.pics.length - 1) });
     }
+    this.picTimer(this.state.intId);
   }
 
   iconClickHandler(event) {
@@ -28,7 +45,9 @@ class Carousel extends React.Component {
       event.target.className = 'fas fa-dot-circle';
     }
 
-    this.setState({ caroNum: event.target.iconId, active: false });
+    this.setState({ caroNum: event.target.iconId });
+
+    this.picTimer(this.state.intId);
 
   }
 
@@ -51,10 +70,8 @@ class Carousel extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.active === false) {
-      window.setInterval();
-    }
+  componentDidMount() {
+    this.picTimer(this.state.intId);
   }
 
   CaroPic(props) {
@@ -67,11 +84,11 @@ class Carousel extends React.Component {
     return (
       <div>
       <div className="caroArea">
-        <i className="fas fa-arrow-left"></i>
+        <i onClick={this.arrowClickHandler} className="fas fa-arrow-left"></i>
           <this.CaroPic picUrl={this.props.pics[this.state.caroNum].path} charName={this.props.pics[this.state.caroNum].char} />
-        <i className="fas fa-arrow-right"></i>
+          <i onClick={this.arrowClickHandler} className="fas fa-arrow-right"></i>
       </div>
-      <div className="iconContainer">
+        <div onClick={this.iconClickHandler} className="iconContainer">
         <this.IconList pics={this.props.pics}/>
       </div>
       </div>
