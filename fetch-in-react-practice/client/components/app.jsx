@@ -98,8 +98,7 @@ export default class App extends React.Component {
       )
       .then(todo => {
         const newTodos = [...this.state.todos];
-        const targetIndex = newTodos.findIndex(element => element.todoId === todoId);
-        newTodos[targetIndex] = todo;
+        newTodos[targetTodoIndex] = todo;
         return this.setState({
           todos: newTodos
         }
