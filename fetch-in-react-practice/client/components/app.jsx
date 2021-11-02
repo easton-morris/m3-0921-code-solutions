@@ -74,7 +74,8 @@ export default class App extends React.Component {
   }
 
   toggleCompleted(todoId) {
-    const targetTodo = this.state.todos[(todoId - 1)];
+    const targetTodoIndex = this.state.todos.findIndex(element => element.todoId === todoId);
+    const targetTodo = this.state.todos[targetTodoIndex];
     const currentStatus = targetTodo.isCompleted;
     const updatedStatus = !currentStatus;
 
@@ -96,8 +97,9 @@ export default class App extends React.Component {
       }
       )
       .then(todo => {
-        const newTodos = this.state.todos;
-        newTodos[(todoId - 1)] = todo;
+        const newTodos = [...this.state.todos];
+        const targetIndex = newTodos.findIndex(element => element.todoId === todoId);
+        newTodos[targetIndex] = todo;
         return this.setState({
           todos: newTodos
         }
