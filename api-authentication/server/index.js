@@ -50,10 +50,11 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 
   /* your code starts here */
 
-  const sql = `SELECT "userId", "hashedPassword"
+  const sql = `SELECT "userId",
+  "hashedPassword"
   FROM "users"
   WHERE "username" = $1`;
-  const params = [username, password];
+  const params = [username];
   db.query(sql, params)
     .then(result => {
       const [userInfo] = result.rows;
@@ -67,7 +68,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
             } else {
               const payload = { userId: userInfo.userId, username: username };
               const newSign = jwt.sign(payload, process.env.TOKEN_SECRET);
-              res.status(200, JSON.stringify({ payload, newSign }));
+              res.status(200).json({ payload, newSign });
             }
           })
           .catch(err => next(err));
